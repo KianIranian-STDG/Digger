@@ -24,11 +24,12 @@ extension DiggerDelegate :URLSessionDataDelegate,URLSessionDelegate {
         
         // the file has been downloaded
         if  DiggerCache.isFileExist(atPath: DiggerCache.cachePath(url: url)){
-            let cachesURL =  URL(fileURLWithPath: DiggerCache.cachePath(url: url))
-            let errorInfo = ["theFileHasbeenDownloaded":cachesURL]
-            let error = NSError(domain: DiggerErrorDomain, code: DiggerError.fileIsExist.rawValue, userInfo: errorInfo)
-            notifyCompletionCallback(Result.failure(error), diggerSeed)
-            return
+            DiggerCache.removeCacheFile(with: url)
+//            let cachesURL =  URL(fileURLWithPath: DiggerCache.cachePath(url: url))
+//            let errorInfo = ["theFileHasbeenDownloaded":cachesURL]
+//            let error = NSError(domain: DiggerErrorDomain, code: DiggerError.fileIsExist.rawValue, userInfo: errorInfo)
+//            notifyCompletionCallback(Result.failure(error), diggerSeed)
+            
         }
         /// status code
         if let statusCode = (response as? HTTPURLResponse)?.statusCode,
